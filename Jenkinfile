@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub
-                git 'https://github.com/HemantPatil27897/27897_casestudy.git'
+                git branch: 'main', url: 'https://github.com/HemantPatil27897/27897_casestudy.git'
             }
         }
         stage('Check Terraform Version') {
