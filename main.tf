@@ -79,11 +79,10 @@ resource "azurerm_linux_virtual_machine" "example" {
   disable_password_authentication = true  # Disable password authentication (use SSH keys)
 
   # Specify the admin SSH key for authentication
-  ssh_keys = [
-    {
-      key_data = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
-    }
-  ]
+  admin_ssh_key {
+    username   = "HemuPatil"  # Username must match admin_username
+    public_key = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
+  }
 
   network_interface_ids = [
     azurerm_network_interface.example.id,
