@@ -7,7 +7,7 @@ provider "azurerm" {
 
 # 2. Create a Resource Group
 resource "azurerm_resource_group" "example" {
-  name     = "Hemant_casestudy"
+  name     = "Hemant_devops_casestudy"
   location = "Central India"  # Choose your preferred location
 }
 
