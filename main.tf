@@ -75,32 +75,34 @@ resource "azurerm_network_interface_security_group_association" "example" {
   network_security_group_id = azurerm_network_security_group.example.id
 }
 
-# 9. Create a Linux Virtual Machine with password authentication
+# 9. Create a Linux Virtual Machine with SSH key authentication
 resource "azurerm_linux_virtual_machine" "example" {
   name                = "Node1"  # VM name
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_B1s"  # VM size
   admin_username      = "HemuPatil"  # Admin username
-  disable_password_authentication = false  # Allow password authentication
+  disable_password_authentication = true  # Disable password authentication
 
-  # Specify the admin password to authenticate to the VM
-  admin_password = "Heman*1234"  # Set a strong password for the VM
+  admin_ssh_key {
+    username   = "HemuPatil"
+    public_key = file("C:\\Users\\HemantPatil\\.ssh\\id_rsa.pub")  # Path to your public SSH key
+  }
 
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
 
   os_disk {
-    caching              = "ReadWrite"  # Disk caching mode
-    storage_account_type = "Standard_LRS"  # Storage type for the OS disk
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
 
   source_image_reference {
-    publisher = "Canonical"  # Publisher for Ubuntu images
-    offer     = "UbuntuServer"  # Offer for Ubuntu Linux OS
-    sku       = "18.04-LTS"  # Choose the Ubuntu version (e.g., 18.04-LTS)
-    version   = "latest"  # Use the latest version of the image
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
   }
 
   tags = {
