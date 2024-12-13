@@ -1,8 +1,6 @@
 # 1. Configure the Azure provider
 provider "azurerm" {
   features {}
-
- 
 }
 
 # 2. Create a Resource Group
@@ -71,17 +69,21 @@ resource "azurerm_network_interface" "example" {
   depends_on = [azurerm_subnet.example]  # Ensures subnet is created before NIC
 }
 
-# 8. Create a Linux Virtual Machine with password authentication
+# 8. Create a Linux Virtual Machine with SSH Key Authentication
 resource "azurerm_linux_virtual_machine" "example" {
   name                = "Node1"  # VM name
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_B1s"  # VM size
   admin_username      = "HemuPatil"  # Admin username
-  disable_password_authentication = false  # Allow password authentication
+  disable_password_authentication = true  # Disable password authentication (use SSH keys)
 
-  # Specify the admin password to authenticate to the VM
-  admin_password = "Heman*1234"  # Set a strong password for the VM
+  # Specify the admin SSH key for authentication
+  ssh_keys = [
+    {
+      key_data = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
+    }
+  ]
 
   network_interface_ids = [
     azurerm_network_interface.example.id,
@@ -93,10 +95,10 @@ resource "azurerm_linux_virtual_machine" "example" {
   }
 
   source_image_reference {
-    publisher = "Canonical"  # Publisher for Ubuntu images
-    offer     = "UbuntuServer"  # Offer for Ubuntu Linux OS
-    sku       = "18.04-LTS"  # Choose the Ubuntu version (e.g., 18.04-LTS)
-    version   = "latest"  # Use the latest version of the image
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
   }
 
   tags = {
