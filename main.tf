@@ -81,7 +81,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   # Specify the admin SSH key for authentication
   admin_ssh_key {
     username   = "HemuPatil"  # Username must match admin_username
-    public_key = file("~/.ssh/id_rsa.pub")  # Path to your SSH public key
+    public_key = file("C:/Users/hemant.patil/.ssh/id_rsa.pub")  # Path to your SSH public key
   }
 
   network_interface_ids = [
