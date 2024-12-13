@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    environment {
+        ARM_CLIENT_ID = credentials('azure_client_id')  // Retrieved from Jenkins Credentials store
+        ARM_CLIENT_SECRET = credentials('azure_client_secret')  // Retrieved from Jenkins Credentials store
+        ARM_SUBSCRIPTION_ID = credentials('azure_subscription_id')  // Retrieved from Jenkins Credentials store
+        ARM_TENANT_ID = credentials('azure_tenant_id')  // Retrieved from Jenkins Credentials store
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from GitHub
+                git 'https://github.com/HemantPatil27897/27897_casestudy.git'
+            }
+        }
+        stage('Check Terraform Version') {
+            steps {
+                // Check the Terraform version to ensure it is installed
+                bat 'terraform -version'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                // Initialize Terraform
+                bat 'terraform init'
+            }
+        }
+        stage('Terraform Apply') {
+            steps {
+                // Apply the Terraform configuration
+                bat 'terraform apply -auto-approve'
+            }
+        }
+    }
+}
