@@ -53,15 +53,12 @@ resource "azurerm_public_ip" "example" {
   sku                  = "Standard"  # Ensure you are using the "Standard" SKU
 }
 
-# 7. Create a Network Interface (NIC) and associate NSG
+# 7. Create a Network Interface (NIC)
 resource "azurerm_network_interface" "example" {
   name                      = "nic-terraform-example"
   location                  = azurerm_resource_group.example.location
   resource_group_name       = azurerm_resource_group.example.name
   
-  # Associate the Network Security Group (NSG) with the NIC
-  network_security_group_id = azurerm_network_security_group.example.id
-
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.example.id  # Link subnet here
@@ -72,7 +69,13 @@ resource "azurerm_network_interface" "example" {
   depends_on = [azurerm_subnet.example]  # Ensures subnet is created before NIC
 }
 
-# 8. Create a Linux Virtual Machine with password authentication
+# 8. Associate NSG with NIC using azurerm_network_interface_security_group_association
+resource "azurerm_network_interface_security_group_association" "example" {
+  network_interface_id      = azurerm_network_interface.example.id
+  network_security_group_id = azurerm_network_security_group.example.id
+}
+
+# 9. Create a Linux Virtual Machine with password authentication
 resource "azurerm_linux_virtual_machine" "example" {
   name                = "Node1"  # VM name
   resource_group_name = azurerm_resource_group.example.name
@@ -105,7 +108,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   }
 }
 
-# 9. Output the public IP of the VM
+# 10. Output the public IP of the VM
 output "public_ip" {
   value = azurerm_public_ip.example.ip_address
 }
