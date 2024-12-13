@@ -25,6 +25,12 @@ pipeline {
                 bat 'terraform init'
             }
         }
+        stage('Terraform Plan') {
+            steps {
+                // Run Terraform plan to preview the changes
+                bat 'terraform plan'
+            }
+        }
         stage('Terraform Apply') {
             steps {
                 // Apply the Terraform configuration
