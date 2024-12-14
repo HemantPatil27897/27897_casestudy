@@ -1,5 +1,5 @@
 pipeline {
-    agent any  // This means Jenkins will run on any available agent (executor)
+     agent { label 'linux' }  // This means Jenkins will run on any available agent (executor)
 
     environment {
         ANSIBLE_PLAYBOOK = 'install_docker.yml'  // Path to your Ansible playbook in the GitHub repo
