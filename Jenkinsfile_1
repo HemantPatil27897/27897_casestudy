@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         ANSIBLE_PLAYBOOK = 'install_docker.yml'  // Path to your Ansible playbook in the GitHub repo
-        INVENTORY_FILE = '/path/to/inventory.ini'  // Path to the inventory file on your Azure VM (full path)
-        AZURE_SSH_PASSWORD = credentials('azure_admin_password')  // Use Jenkins credentials for SSH password
+        INVENTORY_FILE = '/home/Hemu_key/ansible_books/inventory.ini'  // Path to the inventory file on your Azure VM (full path)
+        AZURE_SSH_PASSWORD = credentials('ssh_password')  // Use Jenkins credentials for SSH password
     }
 
     stages {
