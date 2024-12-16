@@ -5,7 +5,7 @@ provider "azurerm" {
 
 # 2. Create a Resource Group
 resource "azurerm_resource_group" "example" {
-  name     = "Hemant_devops_casestudy"
+  name     = "Hemant_devops_casestudy_1"
   location = "Central India"  # Choose your preferred location
 }
 
@@ -75,19 +75,14 @@ resource "azurerm_network_interface_security_group_association" "example" {
   network_security_group_id = azurerm_network_security_group.example.id
 }
 
-# 9. Create a Linux Virtual Machine with SSH key authentication
+# 9. Create a Linux Virtual Machine with username and password authentication
 resource "azurerm_linux_virtual_machine" "example" {
-  name                = "Node1"  # VM name
+  name                = "Node_Hemant"  # VM name
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_B1s"  # VM size
-  admin_username      = "HemuPatil"  # Admin username
-  disable_password_authentication = true  # Disable password authentication
-
-  admin_ssh_key {
-    username   = "HemuPatil"
-    public_key = file("C:\\Users\\HemantPatil\\.ssh\\id_rsa.pub")  # Path to your public SSH key
-  }
+  admin_username      = "HemantPatil"  # Admin username
+  admin_password      = "Heman*123456"  # Admin password
 
   network_interface_ids = [
     azurerm_network_interface.example.id,
