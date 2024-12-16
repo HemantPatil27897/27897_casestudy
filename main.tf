@@ -1,9 +1,11 @@
 # 1. Configure the Azure provider
 provider "azurerm" {
-  features {}
-  resource_group {
+  features {
+     resource_group {
       prevent_deletion_if_contains_resources = false
     }
+  }
+ 
 }
 
 # 2. Create a Resource Group
