@@ -88,6 +88,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   size                = "Standard_B1s"  # VM size
   admin_username      = "HemantPatil"  # Admin username
   admin_password      = "Heman*123456"  # Admin password
+  disable_password_authentication = false
 
   network_interface_ids = [
     azurerm_network_interface.example.id,
