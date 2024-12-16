@@ -4,8 +4,180 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+     h1{
+        text-align: center;
+        color: orange;
+        margin-top: 0;
+     }
+
+     body{
+        background-color:white;
+     }
+
+     img{
+        width: 40px;
+        height: 40px;
+        border-radius: 25px;
+     }
+
+     #full-part{
+        width: 100%;
+        height: 100%;
+        background-color: red;
+        border-radius: 25px;
+        margin-top: 0;
+        display: flex;
+     }
+
+     #first-part{
+        width: 30%;
+        background-color: blueviolet;
+        border-radius: 25px;
+        padding: 20px;
+     }
+
+     #AddButn,#DisButn{
+        background-color: black;
+        color: red;
+        border: none;
+        padding: 15px;
+        border-radius: 25px;
+        width: 100px;
+     }
+    </style>
 </head>
 <body>
+    <h1>Online Pizza Order System</h1>
+    <div id="full-part">
+        <div id="first-part">
+            <h2>Chose your favourite pizza</h2>
+            
+            <form action="
+            ">
+            <label > <input type="radio" id="veg" name="type">Veg</label>
+           <label > <input type="radio" id="non-veg" name="type">Non-Veg</label>
+
+           <br> <br>
+
+           <label for="date">Date : </label>
+           <input type="date" id="date" placeholder="Enetr the date"> <br> <br>
+           
+           <label for="size">Size : </label>
+           <select name="size" id="size">
+            <option >Select your own size</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+           </select> <br> <br>
+
+           <label for="toppings">Toppings :</label>
+           <select name="toppings" id="toppings">
+            <option value=""> Chose you toppings</option>
+            <option value="">Mozarella</option>
+            <option value="">CherryTomatoes</option>
+            <option value="">Red Onion</option>
+            <option value="">Pepperoni</option>
+            <option value="">Soicey Italian Sausage</option>
+            <option value="">Garlic</option>
+           </select>
+           <br> <br>
+
+           <label for="howmany">Number of Pizzas : </label>
+           <input type="number" id="howmany" placeholder="Enter your number"> <br> <br>
+
+           <label for="price" >Price</label>
+           <input type="number" id="price" placeholder="Enter the Price">
+           <br> <br>
+
+           <label for="number">Mobile-Number</label>
+           <input type="number" id="number" placeholder="Enter your mobile number">
+           <br> <br>
+
+           <label for="address">Delivery Address : </label>
+           <textarea name="address" id="address" maxlength="200" placeholder="Enter your adress"></textarea>
+           <br> <br>
+
+           <label for="pincode">Pincode</label>
+           <input type="number" id="pincode" placeholder="Enetr your pincode here">
+
+           <br> <br>
+         </form>
+
+           
+
+           <button id="AddButn" onclick="Add()">Add</button>
+           <button id="DisButn" onclick="Display()">Display</button>
+
     
+        </div>
+
+        
+    </div>
+
+    <script>
+        let carts = [];
+        function Add()
+        {
+              let type = document.querySelector('input[name=type]:checked').value;
+              let date = document.getElementById('date').value;
+              let size = document.getElementById('size').value;
+              let toppings = document.getElementById('toppings').value;
+              let howmany = document.getElementById('howmany').value;
+              let price =  document.getElementById('price').value;
+              let mob = document.getElementById('number').value;
+              let adress = document.getElementById('address').value;
+              let pin = document.getElementById('pincode').value;
+
+              carts.push({type,date,size,toppings,howmany,price,mob,adress,pin});
+              alert("Added successfully");
+        }
+
+
+      
+
+        function Display() {
+    let div = document.createElement('div');
+
+    carts.forEach(cart => {
+        let pizza_size = document.createElement('p');
+        pizza_size.innerText =  cart.size;
+
+        let price = document.createElement('p');
+        price.innerText = " price "   + cart.price ;
+
+        let type = document.createElement('p');
+        type.innerText = `Type: ${cart.type}`;
+
+        let mob = document.createElement('p');
+        mob.innerText = `Mobile-number: ${cart.mob}`;
+
+        let pin = document.createElement('p');
+        pin.innerText = `Pin code: ${cart.pin}`;
+
+        let howmany = document.createElement('p');
+        howmany.innerText = `How many : ${cart.howmany}`;
+
+        let totalprice = document.createElement('p');
+        
+        totalprice.innerText = `Total Price: ${(cart.price * cart.howmany).toFixed(2)}`;
+
+       
+        div.appendChild(pizza_size);
+        div.appendChild(price);
+        div.appendChild(type);
+        div.appendChild(mob);
+        div.appendChild(pin);
+        div.appendChild(howmany);
+        div.appendChild(totalprice);
+    });
+
+    
+    document.body.appendChild(div);
+}
+
+    </script>
+
 </body>
 </html>
+
