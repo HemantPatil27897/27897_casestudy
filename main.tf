@@ -11,7 +11,7 @@ provider "azurerm" {
 # 2. Create a Resource Group
 resource "azurerm_resource_group" "example" {
   name     = "Hemant_devops_casestudy_1"
-  location = "Central India"  # Choose your preferred location
+  location = "Central India" 
 }
 
 # 3. Create a Virtual Network (VNet)
@@ -54,8 +54,8 @@ resource "azurerm_public_ip" "example" {
   name                = "public-ip-terraform-example"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
-  allocation_method   = "Static"  # Change this from "Dynamic" to "Static"
-  sku                  = "Standard"  # Ensure you are using the "Standard" SKU
+  allocation_method   = "Static"  
+  sku                  = "Standard"  
 }
 
 # 7. Create a Network Interface (NIC)
@@ -66,9 +66,9 @@ resource "azurerm_network_interface" "example" {
   
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id  # Link subnet here
+    subnet_id                     = azurerm_subnet.example.id  
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.example.id  # Link public IP
+    public_ip_address_id          = azurerm_public_ip.example.id  
   }
 
   depends_on = [azurerm_subnet.example]  # Ensures subnet is created before NIC
@@ -85,9 +85,9 @@ resource "azurerm_linux_virtual_machine" "example" {
   name                = "NodeHemant"  # VM name
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  size                = "Standard_B1s"  # VM size
-  admin_username      = "HemantPatil"  # Admin username
-  admin_password      = "Heman*123456"  # Admin password
+  size                = "Standard_B1s" 
+  admin_username      = "HemantPatil" 
+  admin_password      = "Heman*123456" 
   disable_password_authentication = false
 
   network_interface_ids = [
